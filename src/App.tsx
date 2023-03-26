@@ -9,6 +9,7 @@ import {
   Text,
   Heading,
   Button,
+  Skeleton,
 } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import "./App.css";
@@ -43,16 +44,20 @@ function App() {
         left="50%"
         transform="translate(-50%, -50%)"
       >
-        <Card border="2px solid pink">
+        <Card border="2px solid pink" p='1rem'>
           <CardBody>
-            <Stack divider={<StackDivider />}>
+            <Stack divider={<StackDivider />} gap='1rem'>
               <Box>
-                <Heading>Name</Heading>
-                <Text>{userDetails.name}</Text>
+                <Heading as='h2' fontSize='1.5rem' mb='1rem'>Name</Heading>
+                {
+                  userDetails.name !== '' ? <Text fontSize='1rem'>{userDetails.name}</Text> : <Skeleton height='1rem' />
+                }
               </Box>
               <Box>
-                <Heading>Email</Heading>
-                <Text>{userDetails.email}</Text>
+                <Heading as='h2' fontSize='1.5rem' mb='1rem'>Email</Heading>
+                {
+                  userDetails.email !== '' ? <Text fontSize='1rem'>{userDetails.email}</Text> : <Skeleton height='1rem' />
+                }
               </Box>
             </Stack>
           </CardBody>
