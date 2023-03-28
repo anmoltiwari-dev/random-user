@@ -14,7 +14,7 @@ import {
 import { RepeatIcon } from "@chakra-ui/icons";
 import "./App.css";
 import { fetchRandomUser } from "./utils/api";
-import { Name, UserState } from "./types";
+import { Name, ResultObject, UserState } from "./types";
 
 function App() {
   const [userDetails, setUserDetails] = useState<UserState>({
@@ -24,7 +24,13 @@ function App() {
 
   const getMeUserDetails = async () => {
     const { name, email }: { name: Name; email: string } =
-      await fetchRandomUser();
+      await fetchRandomUser() as ResultObject;
+    if (localStorage) {
+      if (localStorage.getItem('name')) localStorage.removeItem('name');
+      if (localStorage.getItem('email')) localStorage.removeItem('email');
+      localStorage.setItem('name', `${name.first} ${name.last}`);
+      localStorage.setItem('email', email)
+    }
     const fullName = `${name.first} ${name.last}`;
     setUserDetails({
       name: fullName,
